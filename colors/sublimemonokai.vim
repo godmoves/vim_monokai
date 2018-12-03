@@ -574,40 +574,40 @@ hi! link phpVarSelector     Identifier
 " Python
 
 " This configuration assumed python-syntax
-hi! link pythonConditional      Conditional
-hi! link pythonException        Keyword
-hi! link pythonNewFunction      Tag
-hi! link pythonInclude          Keyword
-hi! link pythonParam            SublimeContextParam
-hi! link pythonStatement        Keyword
-hi! link pythonImport           Keyword
-hi! link pythonComment          Comment
-hi! link pythonOperator         Keyword
-hi! link pythonDecorator        Define
-hi! link pythonDottedName       SublimeAqua
-hi! link pythonDef              SublimeType
-hi! link pythonClass            SublimeType
-hi! link pythonLambdaExpr       SublimeType
-hi! link pythonLambdaVar        SublimeContextParam
-hi! link pythonNone             Special
-hi! link pythonBoolean          Special
-hi! link pythonBuiltinOthers    Special
-hi! link pythonBuiltinType      SublimeType
-hi! link pythonBuiltinObj       Blank
-hi! link pythonExClass          SublimeType
-hi! link pythonClassVar         SublimeContextParam
-hi! link pythonFunction         SublimeAqua
-hi! link pythonFuncParamKey     SublimeContextParam
-hi! link pythonFuncParam        Blank
-hi! link pythonTodo             Todo
-hi! link pythonBuiltinFunc      SublimeAqua
+hi! link pythonConditional        Conditional
+hi! link pythonException          Keyword
+hi! link pythonNewFunction        Tag
+hi! link pythonInclude            Keyword
+hi! link pythonParam              SublimeContextParam
+hi! link pythonStatement          Keyword
+hi! link pythonImport             Keyword
+hi! link pythonComment            Comment
+hi! link pythonOperator           Keyword
+hi! link pythonDecorator          Define
+hi! link pythonDottedName         SublimeAqua
+hi! link pythonDef                SublimeType
+hi! link pythonClass              SublimeType
+hi! link pythonLambdaExpr         SublimeType
+hi! link pythonLambdaVar          SublimeContextParam
+hi! link pythonNone               Special
+hi! link pythonBoolean            Special
+hi! link pythonBuiltinOthers      Special
+hi! link pythonBuiltinType        SublimeType
+hi! link pythonBuiltinObj         Blank
+hi! link pythonExClass            SublimeType
+hi! link pythonClassVar           SublimeContextParam
+hi! link pythonFunction           SublimeAqua
+hi! link pythonFuncParamKey       SublimeContextParam
+hi! link pythonFuncParam          Blank
+hi! link pythonTodo               Todo
+hi! link pythonBuiltinFunc        SublimeAqua
 hi! link pythonRaiseFromStatement Keyword
-hi! link pythonLongString        Comment
+hi! link pythonLongString         Comment
+hi! link pythonFuncBuiltinType    SublimeType
 
 " XXX: Some string prefix are not rendered correctly, should fix later
 
 " Some test links
-"hi! link pythonFuncBuiltinType  SublimeType
 "hi! link pythonExceptions       SublimeAqua
 "hi! link pythonDecoratorName    SublimeType
 "hi! link pythonRepeat           Repeat

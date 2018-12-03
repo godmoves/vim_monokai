@@ -37,7 +37,6 @@ endfunction
 " Default options
 "
 
-call s:EnableByDefault('g:python_slow_sync')
 call s:EnableByDefault('g:python_highlight_builtin_funcs_kwarg')
 call s:EnableByDefault('g:python_highlight_operators')
 call s:EnableByDefault('g:python_highlight_file_headers_as_comments')
@@ -99,8 +98,7 @@ else
   syn match   pythonNewFunction '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonVars
   " TODO: this will highlight a single async rather than highlight async def as
   " a whole, and this will also highligh light 'async class' which not exist.
-  " syn match   pythonStatement   '\<async\s\+def\>' nextgroup=pythonNewFunction skipwhite
-  syn match   pythonStatement   'async' nextgroup=pythonDef skipwhite
+  syn match   pythonStatement   'async\(\s\+def\>\)\@=' 
   syn match   pythonStatement   '\<async\s\+with\>'
   syn match   pythonStatement   '\<async\s\+for\>'
   syn cluster pythonExpression  contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonBuiltinObj,pythonBuiltinFunc
@@ -112,13 +110,10 @@ syn match pythonBrackets "{[(|)]}" contained skipwhite
 
 syn match pythonFunction "[a-zA-Z_][a-zA-Z0-9_]*(\@=" display nextgroup=pythonFuncVars
 syn match pythonFuncParamKey "\w*\s*=\@=" contained
+syn match pythonFuncBuiltinType "\(=\s*\)\@<=\v\.@<!<%(type|object|str|basestring|unicode|buffer|bytearray|bytes|chr|unichr|dict|int|long|bool|float|complex|set|frozenset|list|tuple|file|super)" contained
 syn region pythonFuncVars start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonFuncParam transparent keepend
-syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonOperator,pythonLambdaExpr,pythonBuiltinObj,pythonBuiltinFunc,pythonConstant,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonBuiltinType,pythonFuncBuiltinType skipwhite
+syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonOperator,pythonLambdaExpr,pythonConstant,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType skipwhite
 
-" TODO: this should be used to highlight the builtin type in function
-" parameters
-" syn match pythonFuncBuiltinType "=\s*\v\.@<!<%(type|object|str|basestring|unicode|buffer|bytearray|bytes|chr|unichr|dict|int|long|bool|float|complex|set|frozenset|list|tuple|file|super)" contained
-" syn match pythonFuncBuiltinType "str" contained
 
 "
 " Operators

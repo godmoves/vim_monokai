@@ -602,7 +602,7 @@ hi! link pythonFuncParam          Blank
 hi! link pythonTodo               Todo
 hi! link pythonBuiltinFunc        SublimeAqua
 hi! link pythonRaiseFromStatement Keyword
-hi! link pythonLongString         Comment
+hi! link pythonCommentString      Comment
 hi! link pythonFuncBuiltinType    SublimeType
 
 " XXX: Some string prefix are not rendered correctly, should fix later

@@ -9,6 +9,7 @@ endif
 "
 " Commands
 "
+
 command! -buffer Python2Syntax let b:python_version_2 = 1 | let &syntax=&syntax
 command! -buffer Python3Syntax let b:python_version_2 = 0 | let &syntax=&syntax
 
@@ -59,6 +60,7 @@ endif
 "
 " Keywords
 "
+
 syn keyword pythonBuiltinType type object
 syn keyword pythonBuiltinType str basestring unicode buffer bytearray bytes chr unichr
 syn keyword pythonBuiltinType dict int long bool float complex set frozenset list tuple
@@ -85,20 +87,22 @@ syn match pythonImport          '^\s*\zsfrom\>'
 
 if s:Python2Syntax()
   if !s:Enabled('g:python_print_as_function')
-    syn keyword pythonStatement  print
+    syn keyword pythonStatement print
   endif
   syn keyword pythonStatement   exec
   syn keyword pythonImport      as
-  syn match   pythonNewFunction    '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonVars
+  syn match   pythonNewFunction '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonVars
 else
   syn keyword pythonStatement   as nonlocal
   syn match   pythonStatement   '\v\.@<!<await>'
-  syn match   pythonNewFunction    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonVars
-  "syn match   pythonStatement   '\<async\s\+def\>' nextgroup=pythonNewFunction skipwhite
+  syn match   pythonNewFunction '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonVars
+  " TODO: this will highlight a single async rather than highlight async def as
+  " a whole, and this will also highligh light 'async class' which not exist.
+  " syn match   pythonStatement   '\<async\s\+def\>' nextgroup=pythonNewFunction skipwhite
   syn match   pythonStatement   'async' nextgroup=pythonDef skipwhite
   syn match   pythonStatement   '\<async\s\+with\>'
   syn match   pythonStatement   '\<async\s\+for\>'
-  syn cluster pythonExpression contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonBuiltinObj,pythonBuiltinFunc
+  syn cluster pythonExpression  contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonBuiltinObj,pythonBuiltinFunc
 endif
 
 syn region pythonVars start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParam transparent keepend
@@ -110,16 +114,18 @@ syn match pythonFuncParamKey "\w*\s*=\@=" contained
 syn region pythonFuncVars start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonFuncParam transparent keepend
 syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonOperator,pythonLambdaExpr,pythonBuiltinObj,pythonBuiltinFunc,pythonConstant,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonBuiltinType,pythonFuncBuiltinType skipwhite
 
-"TODO: Fix this later
-"syn match pythonFuncBuiltinType "=\s*\v\.@<!<%(type|object|str|basestring|unicode|buffer|bytearray|bytes|chr|unichr|dict|int|long|bool|float|complex|set|frozenset|list|tuple|file|super)" contained
-"syn match pythonFuncBuiltinType "str" contained
+" TODO: this should be used to highlight the builtin type in function
+" parameters
+" syn match pythonFuncBuiltinType "=\s*\v\.@<!<%(type|object|str|basestring|unicode|buffer|bytearray|bytes|chr|unichr|dict|int|long|bool|float|complex|set|frozenset|list|tuple|file|super)" contained
+" syn match pythonFuncBuiltinType "str" contained
 
 "
 " Operators
 "
+
 syn keyword pythonOperator      and in is not or
 if s:Enabled('g:python_highlight_operators')
-    syn match pythonOperator        '\V=\|-\|+\|*\|@\|/\|%\|&\||\|^\|~\|<\|>\|!='
+    syn match pythonOperator    '\V=\|-\|+\|*\|@\|/\|%\|&\||\|^\|~\|<\|>\|!='
 endif
 syn match pythonError           '[$?]\|\([-+@%&|^~]\)\1\{1,}\|\([=*/<>]\)\2\{2,}\|\([+@/%&|^~<>]\)\3\@![-+*@/%&|^~<>]\|\*\*[*@/%&|^<>]\|=[*@/%&|^<>]\|-[+*@/%&|^~<]\|[<!>]\+=\{2,}\|!\{2,}=\+' display
 
@@ -133,7 +139,7 @@ if s:Python2Syntax()
 else
   syn match   pythonDottedName '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\)*' display contained
 endif
-syn match   pythonDot        '\.' display containedin=pythonDottedName
+syn match   pythonDot          '\.' display containedin=pythonDottedName
 
 "
 " Comments
@@ -351,8 +357,8 @@ endif
 " Builtin objects and types
 "
 
-syn keyword pythonNone        None
-syn keyword pythonBoolean     True False
+syn keyword pythonNone           None
+syn keyword pythonBoolean        True False
 syn keyword pythonBuiltinOthers  Ellipsis NotImplemented
 
 if s:Enabled('g:python_highlight_builtin_objs')
@@ -422,23 +428,23 @@ if v:version >= 508 || !exists('did_python_syn_inits')
     command -nargs=+ HiLink hi def link <args>
   endif
 
-  HiLink pythonStatement        Statement
-  HiLink pythonRaiseFromStatement   Statement
-  HiLink pythonImport           Include
+  HiLink pythonStatement           Statement
+  HiLink pythonRaiseFromStatement  Statement
+  HiLink pythonImport              Include
   HiLink pythonNewFunction         Function
-  HiLink pythonConditional      Conditional
-  HiLink pythonRepeat           Repeat
-  HiLink pythonException        Exception
-  HiLink pythonOperator         Operator
+  HiLink pythonConditional         Conditional
+  HiLink pythonRepeat              Repeat
+  HiLink pythonException           Exception
+  HiLink pythonOperator            Operator
 
-  HiLink pythonDecorator        Define
-  HiLink pythonDottedName       Function
-  HiLink pythonDot              Normal
+  HiLink pythonDecorator           Define
+  HiLink pythonDottedName          Function
+  HiLink pythonDot                 Normal
 
-  HiLink pythonComment          Comment
+  HiLink pythonComment             Comment
   if !s:Enabled('g:python_highlight_file_headers_as_comments')
-    HiLink pythonCoding           Special
-    HiLink pythonRun              Special
+    HiLink pythonCoding            Special
+    HiLink pythonRun               Special
   endif
   HiLink pythonTodo             Todo
 

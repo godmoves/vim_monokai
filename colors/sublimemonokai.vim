@@ -1,4 +1,4 @@
-" File:       monokai.vim
+" File:       sublimemonokai.vim
 " Maintainer: Erich Gubler (erichdongubler)
 " URL:        https://github.com/erichdongubler/vim-sublime-monokai
 " License:    MIT
@@ -476,7 +476,9 @@ hi! link jsFuncArgs       SublimeContextParam
 hi! link jsFuncCall       SublimeFunctionCall
 hi! link jsFuncName       Tag
 hi! link jsFunctionKey    Tag
-" FIXME: FutureKeys includes a bit too much. It had some type names, which should be aqua, but most of the keywords that might actually get used would be pink (keywords like public, abstract).
+" FIXME: FutureKeys includes a bit too much. It had some type names, which 
+" should be aqua, but most of the keywords that might actually get used would
+" be pink (keywords like public, abstract).
 hi! link jsFutureKeys     Keyword
 call s:h('jsGlobalObjects', { 'fg': s:aqua, 'format': 'italic' })
 hi! link jsImport         Keyword
@@ -600,9 +602,11 @@ hi! link pythonTodo             Todo
 hi! link pythonBuiltinFunc      SublimeAqua
 hi! link pythonRaiseFromStatement Keyword
 hi! link pythonLongString        Comment
-"hi! link pythonFuncBuiltinType  SublimeType
+
+" XXX: Some string prefix are not rendered correctly, should fix later
 
 " Some test links
+"hi! link pythonFuncBuiltinType  SublimeType
 "hi! link pythonExceptions       SublimeAqua
 "hi! link pythonDecoratorName    SublimeType
 "hi! link pythonRepeat           Repeat

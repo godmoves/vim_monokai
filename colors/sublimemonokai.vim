@@ -588,6 +588,7 @@ hi! link pythonLambdaExpr       SublimeType
 hi! link pythonLambdaVar        SublimeContextParam
 hi! link pythonNone             Special
 hi! link pythonBoolean          Special
+hi! link pythonBuiltinOthers    Special
 hi! link pythonBuiltinType      SublimeType
 hi! link pythonBuiltinObj       Blank
 hi! link pythonExClass          SublimeType
@@ -596,8 +597,10 @@ hi! link pythonFunction         SublimeAqua
 hi! link pythonFuncParamKey     SublimeContextParam
 hi! link pythonFuncParam        Blank
 hi! link pythonTodo             Todo
+hi! link pythonBuiltinFunc      SublimeAqua
+hi! link pythonRaiseFromStatement Keyword
+hi! link pythonLongString        Comment
 "hi! link pythonFuncBuiltinType  SublimeType
-
 
 " Some test links
 "hi! link pythonExceptions       SublimeAqua

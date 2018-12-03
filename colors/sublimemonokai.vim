@@ -586,6 +586,7 @@ hi! link pythonOperator         Keyword
 hi! link pythonDecorator        Define
 hi! link pythonDottedName       SublimeAqua
 hi! link pythonDef              SublimeType
+hi! link pythonClass            SublimeType
 hi! link pythonLambdaExpr       SublimeType
 hi! link pythonLambdaVar        SublimeContextParam
 hi! link pythonNone             Special

@@ -70,7 +70,8 @@ syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVar skipwhite
 syn match pythonLambdaVar       "\%(\%(lambda\s\)\s*\)\@<=\h\%(\w\)*:\@=" display 
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
-syn keyword pythonDef           def class nextgroup=pythonNewFunction skipwhite
+syn keyword pythonDef           def nextgroup=pythonNewFunction skipwhite
+syn keyword pythonClass         class nextgroup=pythonNewFunction skipwhite
 if s:Enabled('g:python_highlight_class_vars')
   syn keyword pythonClassVar    self cls
 endif

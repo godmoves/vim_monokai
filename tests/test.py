@@ -33,7 +33,23 @@ def something()
 @test.test
 def something
 
-test(arg1=1, arg2=2)
+test(arg1=1, arg2=int)
+
+_long    = concretization_function_error(long)
+_complex = concretization_function_error(complex)
+_hex     = concretization_function_error(hex)
+_oct     = concretization_function_error(oct)
+test(hash=hash)
+test(help=help)
+test(int=int)
+test(__import__)
+test(__import__=int)
+test(print)
+test(memoryview)
+test(type)
+test(chr)
+test(slice)
+
 
 test.__init__
 

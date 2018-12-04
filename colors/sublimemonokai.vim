@@ -594,6 +594,7 @@ hi! link pythonFunc               SublimeAqua
 hi! link pythonFuncParam          Blank
 hi! link pythonFuncParamKey       SublimeContextParam
 hi! link pythonFuncBuiltinType    SublimeType
+hi! link pythonFuncBuiltinObj     SublimeAqua
 hi! link pythonOperator           Keyword
 hi! link pythonDecorator          Define
 hi! link pythonDottedName         SublimeAqua

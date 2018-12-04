@@ -112,9 +112,10 @@ syn match pythonParentClassName "[^,|^(|^)]*" contained
 
 syn match pythonFunc "[a-zA-Z_][a-zA-Z0-9_]*(\@=" display nextgroup=pythonFuncParamList
 syn match pythonFuncParamKey "\w*\s*=\@=" contained
-syn match pythonFuncBuiltinType "\(=\s*\)\@<=\v\.@<!<%(type|object|str|basestring|unicode|buffer|bytearray|bytes|chr|unichr|dict|int|long|bool|float|complex|set|frozenset|list|tuple|file|super)" contained
+syn match pythonFuncBuiltinType "\.\@<!\<\(memoryview\|object\|str\|basestring\|unicode\|buffer\|bytearray\|bytes\|slice\|dict\|int\|long\|bool\|float\|complex\|set\|frozenset\|list\|tuple\|file\|super\)\(\s*=\)\@!" contained
+syn match pythonFuncBuiltinObj "\.\@<!\<\(hex\|oct\|__import__\|abs\|all\|any\|bin\|callable\|classmethod\|compile\|complex\|delattr\|dir\|divmod\|enumerate\|eval\|filter\|format\|getattr\|globals\|hasattr\|hash\|help\|id\|input\|isinstance\|issubclass\|iter\|len\|locals\|map\|max\|chr\|min\|next\|open\|ord\|pow\|property\|range\|repr\|reversed\|round\|setattr\|type\|sorted\|staticmethod\|sum\|super\|type\|vars\|zip\|apply\|basestring\|buffer\|cmp\|coerce\|execfile\|file\|intern\|long\|raw_input\|reduce\|reload\|unichr\|unicode\|xrange\|ascii\|exec\|print\)\(\s*=\)\@!" contained
 syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonFuncParam transparent keepend
-syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType skipwhite
+syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj skipwhite
 
 
 "
@@ -345,8 +346,6 @@ else
   syn match   pythonNumberError '\<\d[_0-9]*_\>' display
   syn match   pythonNumber      '\<\d\>' display
   syn match   pythonNumber      '\<[1-9][_0-9]*\d\>' display
-  "syn match   pythonNumber      '\<\d[jJ]\>' display
-  "syn match   pythonNumber      '\<[1-9][_0-9]*\d[jJ]\>' display
   syn match   pythonNumber      '\d\(j\>\|J\>\)\@=' display
   syn match   pythonNumber      '\<[1-9][_0-9]*\d\(j\>\|J\>\)\@=' display
 

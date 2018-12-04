@@ -17,10 +17,33 @@ raise Exception from ex
 
 yield from
 
+lambda x: x.test
+
 def functionname
 class Classname
 def функция
 class Класс
+
+class Model(torch.nn.Module):
+
+    def __init__(self):
+        """
+        In the constructor we instantiate two nn.Linear module
+        """
+        super(Model, self).__init__()
+        self.linear = torch.nn.Linear(1, 1)  # One in and one out
+
+    def forward(self, x):
+        """
+        In the forward function we accept a Variable of input data and we must return
+        a Variable of output data. We can use Modules defined in the constructor as
+        well as arbitrary operators on Variables.
+        """
+        y_pred = self.linear(x)
+        return y_pred
+
+    def __str__(self):
+        return "test"
 
 # Keywords: Python 2
 
@@ -43,6 +66,70 @@ True False Ellipsis None NotImplemented
 bool bytearray dict float frozenset int list object set str tuple
 
 # Builtin functions
+__import__
+abs
+all
+any
+bin
+bool
+bytearray
+callable
+chr
+classmethod
+compile
+complex
+delattr
+dict
+dir
+divmod
+enumerate
+eval
+filter
+float
+format
+frozenset
+getattr
+globals
+hasattr
+hash
+help
+hex
+id
+input
+int
+isinstance
+issubclass
+iter
+len
+list
+locals
+map
+max
+memoryview
+min
+next
+object
+oct
+open
+ord
+pow
+property
+range
+repr
+reversed
+round
+set
+setattr
+slice
+sorted
+staticmethod
+str
+sum
+super
+tuple
+type
+vars
+zip
 
 __import__()
 abs()
@@ -148,7 +235,7 @@ StopIteration SyntaxError IndentationError TabError SystemError SystemExit
 TypeError UnboundLocalError UnicodeError UnicodeEncodeError UnicodeDecodeError
 UnicodeTranslateError ValueError WindowsError ZeroDivisionError
 
-Warning UserWarning DeprecationWarning PendingDepricationWarning SyntaxWarning
+Warning UserWarning DeprecationWarning PendingDeprecationWarning SyntaxWarning
 RuntimeWarning FutureWarning ImportWarning UnicodeWarning
 
 # Decorators.
@@ -206,10 +293,17 @@ test'
   test
 \''''
 
+test = """ this is
+a test string """
+
 " \a\b\c\"\'\n\r \x34\077 \08 \xag"
 r" \" \' "
 
 "testтест"
+
+test = b"test"
+test = \
+    b"test"
 
 b"test"
 
@@ -220,6 +314,12 @@ b"тестtest"
 br"test"
 
 br"\a\b\n\r"
+
+ur""
+rr""
+uu""
+ru""
+
 
 # Formattings
 

@@ -71,7 +71,7 @@ syn match pythonLambdaVar       "\%(\%(lambda\s\)\s*\)\@<=\h\%(\w\)*:\@=" displa
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
 syn keyword pythonDef           def nextgroup=pythonNewFunction skipwhite
-syn keyword pythonClass         class nextgroup=pythonNewFunction skipwhite
+syn keyword pythonClass         class nextgroup=pythonNewClass skipwhite
 if s:Enabled('g:python_highlight_class_vars')
   syn keyword pythonClassVar    self cls
 endif
@@ -93,10 +93,12 @@ if s:Python2Syntax()
   syn keyword pythonStatement   exec
   syn keyword pythonImport      as
   syn match   pythonNewFunction '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonVars
+  syn match   pythonNewClass    '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonParentClass
 else
   syn keyword pythonStatement   as nonlocal
   syn match   pythonStatement   '\v\.@<!<await>'
   syn match   pythonNewFunction '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonVars
+  syn match   pythonNewClass    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonParentClass
   " TODO: this will highlight a single async rather than highlight async def as
   " a whole, and this will also highligh light 'async class' which not exist.
   syn match   pythonStatement   'async\(\s\+def\>\)\@=' 
@@ -108,6 +110,9 @@ endif
 syn region pythonVars start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParam transparent keepend
 syn match pythonParam "[^,|^(|^)]*" contained contains=pythonOperator,pythonLambdaExpr,pythonBuiltinObj,pythonBuiltinFunc,pythonConstant,pythonString,pythonNumber,pythonSelf,pythonComment,pythonBuiltinType,pythonBoolean skipwhite
 syn match pythonBrackets "{[(|)]}" contained skipwhite
+
+syn region pythonParentClass start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParentClassName transparent keepend
+syn match pythonParentClassName "[^,|^(|^)]*" contained
 
 syn match pythonFunction "[a-zA-Z_][a-zA-Z0-9_]*(\@=" display nextgroup=pythonFuncVars
 syn match pythonFuncParamKey "\w*\s*=\@=" contained
@@ -170,6 +175,8 @@ endif
 " Strings
 "
 
+syn match pythonStringType "\<\(b\|B\|u\|U\|f\|F\)\=\(r\|R\)\=\(\"\|\'\)\@=" display
+
 if s:Python2Syntax()
   " Python 2 strings
   syn region pythonString   start=+[bB]\='+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,@Spell
@@ -213,7 +220,7 @@ else
   syn region pythonString   start=+"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,@Spell
   syn region pythonString   start=+'''+ skip=+\\'+ end=+'''+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,pythonDocTest,pythonSpaceError,@Spell
   syn region pythonString   start=+"""+ skip=+\\"+ end=+"""+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,pythonDocTest2,pythonSpaceError,@Spell
-  syn region pythonCommentString   start=+^\s'''+ skip=+\\'+ end=+'''+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,pythonDocTest,pythonSpaceError,@Spell
+  syn region pythonCommentString   start=+^\s*'''+ skip=+\\'+ end=+'''+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,pythonDocTest,pythonSpaceError,@Spell
   syn region pythonCommentString   start=+^\s*"""+ skip=+\\"+ end=+"""+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,pythonDocTest2,pythonSpaceError,@Spell
 
   syn region pythonFString   start=+[fF]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonBytesEscape,pythonBytesEscapeError,pythonUniEscape,pythonUniEscapeError,@Spell

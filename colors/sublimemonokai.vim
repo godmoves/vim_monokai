@@ -211,6 +211,7 @@ hi! link Todo           Comment
 " Some highlighting groups custom to the Sublime Monokai theme
 
 call s:h('SublimeType',   { 'fg': s:aqua, 'format': 'italic' })
+call s:h('SublimeParentClass',   { 'fg': s:green, 'format': 'italic' })
 call s:h('SublimeContextParam',  { 'fg': s:orange, 'format': 'italic' })
 hi! link SublimeDocumentation SublimeGrey
 hi! link SublimeFunctionCall SublimeAqua
@@ -577,6 +578,7 @@ hi! link phpVarSelector     Identifier
 hi! link pythonConditional        Conditional
 hi! link pythonException          Keyword
 hi! link pythonNewFunction        Tag
+hi! link pythonNewClass           Tag
 hi! link pythonInclude            Keyword
 hi! link pythonParam              SublimeContextParam
 hi! link pythonStatement          Keyword
@@ -604,10 +606,12 @@ hi! link pythonBuiltinFunc        SublimeAqua
 hi! link pythonRaiseFromStatement Keyword
 hi! link pythonCommentString      Comment
 hi! link pythonFuncBuiltinType    SublimeType
+hi! link pythonParentClassName    SublimeParentClass
 
 " XXX: Some string prefix are not rendered correctly, should fix later
 
 " Some test links
+"hi! link pythonStringType       SublimeType
 "hi! link pythonExceptions       SublimeAqua
 "hi! link pythonDecoratorName    SublimeType
 "hi! link pythonRepeat           Repeat

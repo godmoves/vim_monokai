@@ -56,7 +56,7 @@ class Model(torch.nn.Module):
         """
         y_pred = self.linear(x)
         return y_pred
-    
+
 # builtin method
 __new__ __init__ __del__ __repr__ __str__ __bytes__
 __format__ __le__ __lt__ __eq__ __ne__ __gt__ __ge__
@@ -79,6 +79,7 @@ __aexit__
 # Keywords: Python 2
 
 exec
+# wontfix
 print
 
 # Keywords: Python 3
@@ -98,6 +99,7 @@ bool bytearray dict float frozenset int list object set str tuple
 
 # Builtin functions
 
+# slice & memoryview should be italic, type & chr should be non-italic
 __import__ abs all any bin bool bytearray callable chr classmethod
 compile complex delattr dict dir divmod enumerate eval filter float
 format frozenset getattr globals hasattr hash help hex id input int

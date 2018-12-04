@@ -137,7 +137,6 @@ if s:Python2Syntax()
 else
   syn match   pythonDottedName '\(@\s*\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\(\%([^[:cntrl:][:punct:][:space:]]\|_\)\|\.\)*\.\|@\s*\)\@<=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\(\.\|\%([^[:cntrl:][:punct:][:space:]]\|_\)\)\@!' display 
 endif
-syn match   pythonDot          '\.' display containedin=pythonDottedName
 
 "
 " Comments
@@ -462,10 +461,10 @@ if v:version >= 508 || !exists('did_python_syn_inits')
   endif
 
   HiLink pythonStatement           Statement
-  HiLink pythonRaiseFromStatement  Statement
   HiLink pythonImport              Include
+  HiLink pythonFrom                Statement
   HiLink pythonFromDot             Statement
-  HiLink pythonNewFunction         Function
+  HiLink pythonNewFunc             Function
   HiLink pythonConditional         Conditional
   HiLink pythonRepeat              Repeat
   HiLink pythonException           Exception
@@ -473,7 +472,6 @@ if v:version >= 508 || !exists('did_python_syn_inits')
 
   HiLink pythonDecorator           Define
   HiLink pythonDottedName          Function
-  HiLink pythonDot                 Normal
 
   HiLink pythonComment             Comment
   if !s:Enabled('g:python_highlight_file_headers_as_comments')
@@ -487,6 +485,7 @@ if v:version >= 508 || !exists('did_python_syn_inits')
   HiLink pythonSpaceError       Error
 
   HiLink pythonString           String
+  HiLink pythonCommentString    Comment
   HiLink pythonRawString        String
   HiLink pythonRawEscape        Special
 

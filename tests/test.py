@@ -12,19 +12,45 @@ with break continue del return pass raise global assert lambda yield
 for while if elif else import as try except finally
 
 from test import var as name
+from . import test
+from test.test import test
+from .test import test
+# error
+from test.
 
 raise Exception from ex
 
 yield from
 
 lambda x: x.test
+lambda x: x.test()
 
 def functionname
 class Classname
 def функция
 class Класс
 
+@test
+def something()
+
+@test.test
+def something
+
+# error
+@test..test
+def something
+
+@.test
+def something
+
+@test.test()
+def something
+
+test(arg1=1, arg2=2)
+
 test.__init__
+
+def test(arg1=1, arg2=True, __init__)
 
 class Model(torch.nn.Module):
 
@@ -379,7 +405,8 @@ $ ?
 # Numbers
 
 0 1 2 9 10 0x1f .3 12.34 0j 124j 34.2E-3 0b10 0o77 1023434 0x0
-1_1 1_1.2_2 1_2j 0x_1f 0x1_f 34_56e-3 34_56e+3_1 0o7_7
+1_1 1_1.2_2 1_2j 0x_1f 0x1_f 34_56e-3 34_56e+3_1 0o7_7 1.23j 3e4j
+.3j 23j 23_4j
 
 # Erroneous numbers
 

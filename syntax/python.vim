@@ -50,7 +50,6 @@ call s:EnableByDefault('g:python_highlight_space_errors')
 call s:EnableByDefault('g:python_highlight_indent_errors')
 
 if s:Enabled('g:python_highlight_all')
-  call s:EnableByDefault('g:python_highlight_builtins')
   call s:EnableByDefault('g:python_highlight_string_templates')
   call s:EnableByDefault('g:python_highlight_doctests')
   call s:EnableByDefault('g:python_print_as_function')
@@ -70,8 +69,8 @@ syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVar skipwhite
 syn match pythonLambdaVar       "\%(\%(lambda\s\)\s*\)\@<=\h\%(\w\)*:\@=" display 
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
-syn keyword pythonDef           def nextgroup=pythonNewFunction skipwhite
-syn keyword pythonClass         class nextgroup=pythonNewClass skipwhite
+syn keyword pythonFuncDef       def nextgroup=pythonNewFunc skipwhite
+syn keyword pythonClassDef      class nextgroup=pythonNewClass skipwhite
 if s:Enabled('g:python_highlight_class_vars')
   syn keyword pythonClassVar    self cls
 endif
@@ -80,11 +79,10 @@ syn keyword pythonConditional   if elif else
 syn keyword pythonException     try except finally
 " The standard pyrex.vim unconditionally removes the pythonInclude group, so
 " we provide a dummy group here to avoid crashing pyrex.vim.
-syn keyword pythonInclude       import
-syn keyword pythonImport        import
-syn match pythonRaiseFromStatement      '\<from\>'
-syn match pythonImport          '^\s*\zsfrom\>'
-
+syn keyword pythonInclude      import
+syn keyword pythonImport       import
+syn keyword pythonFrom         from
+syn match pythonFromDot        '\(^\s*from\s*\)\@<=\.' display
 
 if s:Python2Syntax()
   if !s:Enabled('g:python_print_as_function')
@@ -92,12 +90,12 @@ if s:Python2Syntax()
   endif
   syn keyword pythonStatement   exec
   syn keyword pythonImport      as
-  syn match   pythonNewFunction '[a-zA-Z_][a-zA-Z0-9_]*' display contained contains=pythonBuiltinMethod nextgroup=pythonVars
+  syn match   pythonNewFunc     '[a-zA-Z_][a-zA-Z0-9_]*' display contained contains=pythonBuiltinMethod nextgroup=pythonNewFuncParamList
   syn match   pythonNewClass    '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonParentClass
 else
   syn keyword pythonStatement   as nonlocal
   syn match   pythonStatement   '\v\.@<!<await>'
-  syn match   pythonNewFunction '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained contains=pythonBuiltinMethod nextgroup=pythonVars
+  syn match   pythonNewFunc     '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained contains=pythonBuiltinMethod nextgroup=pythonNewFuncParamList
   syn match   pythonNewClass    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonParentClass
   syn match   pythonStatement   'async\(\s\+def\>\)\@=' 
   syn match   pythonStatement   '\<async\s\+with\>'
@@ -105,18 +103,18 @@ else
   syn cluster pythonExpression  contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonBuiltinObj,pythonBuiltinFunc
 endif
 
-syn region pythonVars start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParam transparent keepend
-syn match pythonParam "[^,|^(|^)]*" contained contains=pythonOperator,pythonLambdaExpr,pythonBuiltinObj,pythonBuiltinFunc,pythonConstant,pythonString,pythonNumber,pythonSelf,pythonComment,pythonBuiltinType,pythonBoolean skipwhite
+syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonNewFuncParam transparent keepend
+syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean skipwhite
 syn match pythonBrackets "{[(|)]}" contained skipwhite
 
 syn region pythonParentClass start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParentClassName transparent keepend
 syn match pythonParentClassName "[^,|^(|^)]*" contained
 
-syn match pythonFunction "[a-zA-Z_][a-zA-Z0-9_]*(\@=" display nextgroup=pythonFuncVars
+syn match pythonFunc "[a-zA-Z_][a-zA-Z0-9_]*(\@=" display nextgroup=pythonFuncParamList
 syn match pythonFuncParamKey "\w*\s*=\@=" contained
 syn match pythonFuncBuiltinType "\(=\s*\)\@<=\v\.@<!<%(type|object|str|basestring|unicode|buffer|bytearray|bytes|chr|unichr|dict|int|long|bool|float|complex|set|frozenset|list|tuple|file|super)" contained
-syn region pythonFuncVars start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonFuncParam transparent keepend
-syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunction,pythonConditional,pythonOperator,pythonLambdaExpr,pythonConstant,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType skipwhite
+syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonFuncParam transparent keepend
+syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType skipwhite
 
 
 "
@@ -133,11 +131,11 @@ syn match pythonError           '[$?]\|\([-+@%&|^~]\)\1\{1,}\|\([=*/<>]\)\2\{2,}
 " Decorators (new in Python 2.4)
 "
 
-syn match   pythonDecorator    '^\s*\zs@' display nextgroup=pythonDottedName skipwhite
+syn match   pythonDecorator    '^\s*\zs@' display skipwhite
 if s:Python2Syntax()
-  syn match   pythonDottedName '[a-zA-Z_][a-zA-Z0-9_]*\%(\.[a-zA-Z_][a-zA-Z0-9_]*\)*' display contained
+  syn match   pythonDottedName '\(@\s*\h\(\w\|\.\)*\.\|@\s\)\@<=\h\w*\(\.\|\w\)\@!' display 
 else
-  syn match   pythonDottedName '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\)*' display contained
+  syn match   pythonDottedName '\(@\s*\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\(\%([^[:cntrl:][:punct:][:space:]]\|_\)\|\.\)*\.\|@\s\)\@<=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\(\.\|\%([^[:cntrl:][:punct:][:space:]]\|_\)\)\@!' display 
 endif
 syn match   pythonDot          '\.' display containedin=pythonDottedName
 
@@ -321,14 +319,16 @@ if s:Python2Syntax()
   syn match   pythonNumberError '\<\d\+\D[lL]\=\>' display
   syn match   pythonNumber      '\<\d[lL]\=\>' display
   syn match   pythonNumber      '\<[0-9]\d\+[lL]\=\>' display
-  syn match   pythonNumber      '\<\d\+[lLjJ]\>' display
+  syn match   pythonNumber      '\<\d\+[lL]\>' display
+  syn match   pythonNumber      '\<\d\+\(j\>\|J\>\)\@=' display
 
   syn match   pythonOctError    '\<0[oO]\=\o*[8-9]\d*[lL]\=\>' display
   syn match   pythonBinError    '\<0[bB][01]*[2-9]\d*[lL]\=\>' display
 
-  syn match   pythonFloat       '\.\d\+\%([eE][+-]\=\d\+\)\=[jJ]\=\>' display
-  syn match   pythonFloat       '\<\d\+[eE][+-]\=\d\+[jJ]\=\>' display
-  syn match   pythonFloat       '\<\d\+\.\d*\%([eE][+-]\=\d\+\)\=[jJ]\=' display
+  syn match   pythonFloat       '\.\d\+\%([eE][+-]\=\d\+\)\=\(j\=\>\|J\=\>\)\@=' display
+  syn match   pythonFloat       '\<\d\+[eE][+-]\=\d\+\(j\=\>\|J\=\>\)\@=' display
+  syn match   pythonFloat       '\<\d\+\.\d*\%([eE][+-]\=\d\+\)\=\(j\=\>\|J\=\>\)\@=' display
+  syn match   pythonImgUnit     '\d\@<=\(j\|J\)'
 else
   syn match   pythonOctError    '\<0[oO]\=\o*\D\+\d*\>' display
   " pythonHexError comes after pythonOctError so that 0xffffl is pythonHexError
@@ -346,15 +346,18 @@ else
   syn match   pythonNumberError '\<\d[_0-9]*_\>' display
   syn match   pythonNumber      '\<\d\>' display
   syn match   pythonNumber      '\<[1-9][_0-9]*\d\>' display
-  syn match   pythonNumber      '\<\d[jJ]\>' display
-  syn match   pythonNumber      '\<[1-9][_0-9]*\d[jJ]\>' display
+  "syn match   pythonNumber      '\<\d[jJ]\>' display
+  "syn match   pythonNumber      '\<[1-9][_0-9]*\d[jJ]\>' display
+  syn match   pythonNumber      '\d\(j\>\|J\>\)\@=' display
+  syn match   pythonNumber      '\<[1-9][_0-9]*\d\(j\>\|J\>\)\@=' display
 
   syn match   pythonOctError    '\<0[oO]\=\o*[8-9]\d*\>' display
   syn match   pythonBinError    '\<0[bB][01]*[2-9]\d*\>' display
 
-  syn match   pythonFloat       '\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=[jJ]\=\>' display
-  syn match   pythonFloat       '\<\d\%([_0-9]*\d\)\=[eE][+-]\=\d\%([_0-9]*\d\)\=[jJ]\=\>' display
-  syn match   pythonFloat       '\<\d\%([_0-9]*\d\)\=\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=[jJ]\=' display
+  syn match   pythonFloat       '\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=\(j\=\>\|J\=\>\)\@=' display
+  syn match   pythonFloat       '\<\d\%([_0-9]*\d\)\=[eE][+-]\=\d\%([_0-9]*\d\)\=\(j\=\>\|J\=\>\)\@=' display
+  syn match   pythonFloat       '\<\d\%([_0-9]*\d\)\=\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=\(j\=\>\|J\=\>\)\@=' display
+  syn match   pythonImgUnit     '\d\@<=\(j\|J\)'
 endif
 
 "
@@ -461,6 +464,7 @@ if v:version >= 508 || !exists('did_python_syn_inits')
   HiLink pythonStatement           Statement
   HiLink pythonRaiseFromStatement  Statement
   HiLink pythonImport              Include
+  HiLink pythonFromDot             Statement
   HiLink pythonNewFunction         Function
   HiLink pythonConditional         Conditional
   HiLink pythonRepeat              Repeat

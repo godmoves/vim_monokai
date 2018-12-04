@@ -15,15 +15,12 @@ from test import var as name
 from . import test
 from test.test import test
 from .test import test
-# error
-from test.
 
 raise Exception from ex
 
 yield from
 
 lambda x: x.test
-lambda x: x.test()
 
 def functionname
 class Classname
@@ -34,16 +31,6 @@ class Класс
 def something()
 
 @test.test
-def something
-
-# error
-@test..test
-def something
-
-@.test
-def something
-
-@test.test()
 def something
 
 test(arg1=1, arg2=2)
@@ -69,115 +56,25 @@ class Model(torch.nn.Module):
         """
         y_pred = self.linear(x)
         return y_pred
-
-    def __str__(self):
-        return "test"
-
-    def __repr__(slef):
-        return
-
-    def __new__
-    def __init__
-    def __del__
-    def __repr__
-    def __str__
-    def __bytes__
-    def __format__
-    def __le__
-    def __lt__
-    def __eq__
-    def __ne__
-    def __gt__
-    def __ge__
-    def __hash__
-    def __bool__
-    def __getattr__
-    def __setattr__
-    def __delattr__
-    def __dir__
-    def __get__
-    def __set__
-    def __delete__
-    def __set_name__
-    def __slots__
-    def __init_subclass__
-    def __prepare__
-    def __instancecheck__
-    def __subclasscheck__
-    def __class_getitem__
-    def __call__
-    def __len__
-    def __length_hint__
-    def __getitem__
-    def __missing__
-    def __setitem__
-    def __delitem__
-    def __iter__
-    def __reversed__
-    def __contains__
-    def __add__
-    def __sub__
-    def __mul__
-    def __matmul__
-    def __truediv__
-    def __floordiv__
-    def __mod__
-    def __divmod__
-    def __pow__
-    def __lshift__
-    def __rshift__
-    def __and__
-    def __xor__
-    def __or__
-    def __radd__
-    def __rsub__
-    def __rmul__
-    def __rmatmul__
-    def __rtruediv__
-    def __rfloordiv__
-    def __rmod__
-    def __rdivmod__
-    def __rpow__
-    def __rlshift__
-    def __rrshift__
-    def __rand__
-    def __rxor__
-    def __ror__
-    def __iadd__
-    def __isub__
-    def __imul__
-    def __imatmul__
-    def __itruediv__
-    def __ifloordiv__
-    def __imod__
-    def __ipow__
-    def __ilshift__
-    def __irshift__
-    def __iand__
-    def __ixor__
-    def __ior__
-    def __neg__
-    def __pos__
-    def __abs__
-    def __invert__
-    def __complex__
-    def __int__
-    def __float__
-    def __index__
-    def __round__
-    def __trunc__
-    def __floor__
-    def __ceil__
-    def __enter__
-    def __exit__
-    def __await__
-    def __aiter__
-    def __anext__
-    def __aenter__
-    def __aexit__
-    def send
-    def throw
-    def close
+    
+# builtin method
+__new__ __init__ __del__ __repr__ __str__ __bytes__
+__format__ __le__ __lt__ __eq__ __ne__ __gt__ __ge__
+__hash__ __bool__ __getattr__ __setattr__ __delattr__
+__dir__ __get__ __set__ __delete__ __set_name__ __slots__
+__init_subclass__ __prepare__ __instancecheck__ __subclasscheck__
+__class_getitem__ __call__ __len__ __length_hint__ __getitem__
+__missing__ __setitem__ __delitem__ __iter__ __reversed__
+__contains__ __add__ __sub__ __mul__ __matmul__ __truediv__
+__floordiv__ __mod__ __divmod__ __pow__ __lshift__ __rshift__
+__and__ __xor__ __or__ __radd__ __rsub__ __rmul__ __rmatmul__
+__rtruediv__ __rfloordiv__ __rmod__ __rdivmod__ __rpow__ __rlshift__
+__rrshift__ __rand__ __rxor__ __ror__ __iadd__ __isub__ __imul__
+__imatmul__ __itruediv__ __ifloordiv__ __imod__ __ipow__ __ilshift__
+__irshift__ __iand__ __ixor__ __ior__ __neg__ __pos__ __abs__ __invert__
+__complex__ __int__ __float__ __index__ __round__ __trunc__ __floor__
+__ceil__ __enter__ __exit__ __await__ __aiter__ __anext__ __aenter__
+__aexit__
 
 # Keywords: Python 2
 
@@ -200,162 +97,30 @@ True False Ellipsis None NotImplemented
 bool bytearray dict float frozenset int list object set str tuple
 
 # Builtin functions
-__import__
-abs
-all
-any
-bin
-bool
-bytearray
-callable
-chr
-classmethod
-compile
-complex
-delattr
-dict
-dir
-divmod
-enumerate
-eval
-filter
-float
-format
-frozenset
-getattr
-globals
-hasattr
-hash
-help
-hex
-id
-input
-int
-isinstance
-issubclass
-iter
-len
-list
-locals
-map
-max
-memoryview
-min
-next
-object
-oct
-open
-ord
-pow
-property
-range
-repr
-reversed
-round
-set
-setattr
-slice
-sorted
-staticmethod
-str
-sum
-super
-tuple
-type
-vars
-zip
 
-__import__()
-abs()
-all()
-any()
-bin()
-bool()
-bytearray()
-callable()
-chr()
-classmethod()
-compile()
-complex()
-delattr()
-dict()
-dir()
-divmod()
-enumerate()
-eval()
-filter()
-float()
-format()
-frozenset()
-getattr()
-globals()
-hasattr()
-hash()
-help()
-hex()
-id()
-input()
-int()
-isinstance()
-issubclass()
-iter()
-len()
-list()
-locals()
-map()
-max()
-memoryview()
-min()
-next()
-object()
-oct()
-open()
-ord()
-pow()
-property()
-range()
-repr()
-reversed()
-round()
-set()
-setattr()
-slice()
-sorted()
-staticmethod()
-str()
-sum()
-super()
-tuple()
-type()
-vars()
-zip()
+__import__ abs all any bin bool bytearray callable chr classmethod
+compile complex delattr dict dir divmod enumerate eval filter float
+format frozenset getattr globals hasattr hash help hex id input int
+isinstance issubclass iter len list locals map max memoryview min next
+object oct open ord pow property range repr reversed round set setattr
+slice sorted staticmethod str sum super tuple type vars zip
+
+__import__() abs() all() any() bin() bool() bytearray() callable() chr()
+classmethod() compile() complex() delattr() dict() dir() divmod() enumerate()
+eval() filter() float() format() frozenset() getattr() globals() hasattr()
+hash() help() hex() id() input() int() isinstance() issubclass() iter() len()
+list() locals() map() max() memoryview() min() next() object() oct() open()
+ord() pow() property() range() repr() reversed() round() set() setattr()
+slice() sorted() staticmethod() str() sum() super() tuple() type() vars() zip()
 
 # Builtin functions: Python 2
 
-apply()
-basestring()
-buffer()
-cmp()
-coerce()
-execfile()
-file()
-intern()
-long()
-raw_input()
-reduce()
-reload()
-unichr()
-unicode()
-xrange()
-
-print()
+apply() basestring() buffer() cmp() coerce() execfile() file() intern()
+long() raw_input() reduce() reload() unichr() unicode() xrange() print()
 
 # Builtin functions: Python 3
 
-ascii()
-bytes()
-exec()
-print()
+ascii() bytes() exec() print()
 
 # Builtin exceptions and warnings.
 

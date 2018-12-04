@@ -133,9 +133,9 @@ syn match pythonError           '[$?]\|\([-+@%&|^~]\)\1\{1,}\|\([=*/<>]\)\2\{2,}
 
 syn match   pythonDecorator    '^\s*\zs@' display skipwhite
 if s:Python2Syntax()
-  syn match   pythonDottedName '\(@\s*\h\(\w\|\.\)*\.\|@\s\)\@<=\h\w*\(\.\|\w\)\@!' display 
+  syn match   pythonDottedName '\(@\s*\h\(\w\|\.\)*\.\|@\s*\)\@<=\h\w*\(\.\|\w\)\@!' display 
 else
-  syn match   pythonDottedName '\(@\s*\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\(\%([^[:cntrl:][:punct:][:space:]]\|_\)\|\.\)*\.\|@\s\)\@<=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\(\.\|\%([^[:cntrl:][:punct:][:space:]]\|_\)\)\@!' display 
+  syn match   pythonDottedName '\(@\s*\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\(\%([^[:cntrl:][:punct:][:space:]]\|_\)\|\.\)*\.\|@\s*\)\@<=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\(\.\|\%([^[:cntrl:][:punct:][:space:]]\|_\)\)\@!' display 
 endif
 syn match   pythonDot          '\.' display containedin=pythonDottedName
 

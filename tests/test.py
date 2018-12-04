@@ -24,6 +24,8 @@ class Classname
 def функция
 class Класс
 
+test.__init__
+
 class Model(torch.nn.Module):
 
     def __init__(self):
@@ -44,6 +46,112 @@ class Model(torch.nn.Module):
 
     def __str__(self):
         return "test"
+
+    def __repr__(slef):
+        return
+
+    def __new__
+    def __init__
+    def __del__
+    def __repr__
+    def __str__
+    def __bytes__
+    def __format__
+    def __le__
+    def __lt__
+    def __eq__
+    def __ne__
+    def __gt__
+    def __ge__
+    def __hash__
+    def __bool__
+    def __getattr__
+    def __setattr__
+    def __delattr__
+    def __dir__
+    def __get__
+    def __set__
+    def __delete__
+    def __set_name__
+    def __slots__
+    def __init_subclass__
+    def __prepare__
+    def __instancecheck__
+    def __subclasscheck__
+    def __class_getitem__
+    def __call__
+    def __len__
+    def __length_hint__
+    def __getitem__
+    def __missing__
+    def __setitem__
+    def __delitem__
+    def __iter__
+    def __reversed__
+    def __contains__
+    def __add__
+    def __sub__
+    def __mul__
+    def __matmul__
+    def __truediv__
+    def __floordiv__
+    def __mod__
+    def __divmod__
+    def __pow__
+    def __lshift__
+    def __rshift__
+    def __and__
+    def __xor__
+    def __or__
+    def __radd__
+    def __rsub__
+    def __rmul__
+    def __rmatmul__
+    def __rtruediv__
+    def __rfloordiv__
+    def __rmod__
+    def __rdivmod__
+    def __rpow__
+    def __rlshift__
+    def __rrshift__
+    def __rand__
+    def __rxor__
+    def __ror__
+    def __iadd__
+    def __isub__
+    def __imul__
+    def __imatmul__
+    def __itruediv__
+    def __ifloordiv__
+    def __imod__
+    def __ipow__
+    def __ilshift__
+    def __irshift__
+    def __iand__
+    def __ixor__
+    def __ior__
+    def __neg__
+    def __pos__
+    def __abs__
+    def __invert__
+    def __complex__
+    def __int__
+    def __float__
+    def __index__
+    def __round__
+    def __trunc__
+    def __floor__
+    def __ceil__
+    def __enter__
+    def __exit__
+    def __await__
+    def __aiter__
+    def __anext__
+    def __aenter__
+    def __aexit__
+    def send
+    def throw
+    def close
 
 # Keywords: Python 2
 

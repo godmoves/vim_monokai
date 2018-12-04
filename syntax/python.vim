@@ -92,15 +92,13 @@ if s:Python2Syntax()
   endif
   syn keyword pythonStatement   exec
   syn keyword pythonImport      as
-  syn match   pythonNewFunction '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonVars
+  syn match   pythonNewFunction '[a-zA-Z_][a-zA-Z0-9_]*' display contained contains=pythonBuiltinMethod nextgroup=pythonVars
   syn match   pythonNewClass    '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonParentClass
 else
   syn keyword pythonStatement   as nonlocal
   syn match   pythonStatement   '\v\.@<!<await>'
-  syn match   pythonNewFunction '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonVars
+  syn match   pythonNewFunction '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained contains=pythonBuiltinMethod nextgroup=pythonVars
   syn match   pythonNewClass    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonParentClass
-  " TODO: this will highlight a single async rather than highlight async def as
-  " a whole, and this will also highligh light 'async class' which not exist.
   syn match   pythonStatement   'async\(\s\+def\>\)\@=' 
   syn match   pythonStatement   '\<async\s\+with\>'
   syn match   pythonStatement   '\<async\s\+for\>'
@@ -372,6 +370,32 @@ if s:Enabled('g:python_highlight_builtin_objs')
   syn keyword pythonBuiltinObj  __debug__ __doc__ __file__ __name__ __package__
   syn keyword pythonBuiltinObj  __loader__ __spec__ __path__ __cached__
 endif
+
+"
+" Builtin method
+"
+
+syn keyword pythonBuiltinMethod __new__ __init__ __del__ __repr__ __str__ __bytes__ __format__
+syn keyword pythonBuiltinMethod __le__ __lt__ __eq__ __ne__ __gt__ __ge__
+syn keyword pythonBuiltinMethod __hash__ __bool__ __getattr__ __setattr__ __delattr__
+syn keyword pythonBuiltinMethod __dir__ __get__ __set__ __delete__ __set_name__
+syn keyword pythonBuiltinMethod __init_subclass__ __instancecheck__ __subclasscheck__
+syn keyword pythonBuiltinMethod __call__ __len__ __length_hint__ __getitem__ __missing__
+syn keyword pythonBuiltinMethod __setitem__ __delitem__ __iter__ __reversed__ __contains__
+syn keyword pythonBuiltinMethod __add__ __sub__ __mul__ __truediv__ __floordiv__
+syn keyword pythonBuiltinMethod __mod__ __divmod__ __pow__ __lshift__ __rshift__
+syn keyword pythonBuiltinMethod __and__ __xor__ __or__ __radd__ __rsub__ __rmul__
+syn keyword pythonBuiltinMethod __rtruediv__ __rfloordiv__ __rmod__ __rdivmod__
+syn keyword pythonBuiltinMethod __rpow__ __rlshift__ __rrshift__ __rand__ __rxor__ __ror__
+syn keyword pythonBuiltinMethod __iadd__ __isub__ __imul__ __itruediv__ __ifloordiv__
+syn keyword pythonBuiltinMethod __imod__ __ipow__ __ilshift__ __irshift__ __iand__ __ixor__
+syn keyword pythonBuiltinMethod __ior__  __neg__ __pos__ __abs__ __invert__ __complex__
+syn keyword pythonBuiltinMethod __float__ __int__ __index__ __round__ __enter__ __exit__
+syn keyword pythonBuiltinMethod __await__ __aiter__ __anext__ __aenter__ __aexit__
+" TODO: these method are listed but not highlighted in sublime text 3
+" syn keyword pythonBuiltinMethod __trunc__ __floor__ __ceil__ __matmul__ __imatmul__ __rmatmul__
+
+
 
 "
 " Builtin functions

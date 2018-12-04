@@ -596,6 +596,7 @@ hi! link pythonBoolean            Special
 hi! link pythonBuiltinOthers      Special
 hi! link pythonBuiltinType        SublimeType
 hi! link pythonBuiltinObj         Blank
+hi! link pythonBuiltinMethod      SublimeAqua
 hi! link pythonExClass            SublimeType
 hi! link pythonClassVar           SublimeContextParam
 hi! link pythonFunction           SublimeAqua

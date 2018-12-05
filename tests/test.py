@@ -68,6 +68,8 @@ def bind(lhs, rhs, window_strides=tuple(window_strides), padding=tuple(padding),
          lhs_shape=lhs.shape, rhs_shape=rhs.shape):
 
 def test(arg):
+def декоратор(ards, args):
+декоратор(test):
 def test(arg1=1, arg2=True, __init__)
 def test(arg1=str(test))
 def test(arg1=test, arg2=teest)

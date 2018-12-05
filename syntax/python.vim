@@ -92,11 +92,13 @@ if s:Python2Syntax()
   syn keyword pythonImport      as
   syn match   pythonNewFunc     '[a-zA-Z_][a-zA-Z0-9_]*' display contained contains=pythonBuiltinMethod nextgroup=pythonNewFuncParamList
   syn match   pythonNewClass    '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonParentClass
+  syn match   pythonFunc        '[a-zA-Z_][a-zA-Z0-9_]*(\@=' display nextgroup=pythonFuncParamList
 else
   syn keyword pythonStatement   as nonlocal
   syn match   pythonStatement   '\v\.@<!<await>'
   syn match   pythonNewFunc     '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained contains=pythonBuiltinMethod nextgroup=pythonNewFuncParamList
   syn match   pythonNewClass    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonParentClass
+  syn match   pythonFunc        '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*(\@=' display nextgroup=pythonFuncParamList
   syn match   pythonStatement   'async\(\s\+def\>\)\@=' 
   syn match   pythonStatement   '\<async\s\+with\>'
   syn match   pythonStatement   '\<async\s\+for\>'
@@ -105,14 +107,12 @@ endif
 
 syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(:\|$\)" contained contains=pythonNewFuncParam transparent keepend
 syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonNewFuncParamLeft,pythonFuncBuiltinObj,pythonFuncBuiltinType,pythonClassDef,pythonFuncDef,pythonNone skipwhite
-syn match pythonNewFuncParamLeft "\(=\s*\|\w\|\.\)\@<![^,|^(|^)|^=]*\(=\|,\|)\)\@=" contained
-" syn match pythonNewFuncParamLeft "\h\w*\s*=\@=\|\(=\s*\|\w\|\.\)\@<!\h\w*,\@=\|\(\s\+\|,\s*\)\@<=\h\w*)\@=" contained
+syn match pythonNewFuncParamLeft "\(=\s*\w*(\=\|\w\|\.\)\@<![^,|^(|^)|^=]*\(=\|,\|)\)\@=" contained
 syn match pythonBrackets "{[(|)]}" contained skipwhite
 
 syn region pythonParentClass start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParentClassName transparent keepend
 syn match pythonParentClassName "[^,|^(|^)]*" contained
 
-syn match pythonFunc "[a-zA-Z_][a-zA-Z0-9_]*(\@=" display nextgroup=pythonFuncParamList
 syn match pythonFuncParamKey "\h\w*\s*=\@=" contained
 syn match pythonFuncBuiltinType "\.\@<!\<\(memoryview\|object\|str\|basestring\|unicode\|buffer\|bytearray\|bytes\|slice\|dict\|int\|long\|bool\|float\|complex\|set\|frozenset\|list\|tuple\|file\|super\)\(\s*=\)\@!" contained
 syn match pythonFuncBuiltinObj "\.\@<!\<\(hex\|oct\|__import__\|abs\|all\|any\|bin\|callable\|classmethod\|compile\|complex\|delattr\|dir\|divmod\|enumerate\|eval\|filter\|format\|getattr\|globals\|hasattr\|hash\|help\|id\|input\|isinstance\|issubclass\|iter\|len\|locals\|map\|max\|chr\|min\|next\|open\|ord\|pow\|property\|range\|repr\|reversed\|round\|setattr\|type\|sorted\|staticmethod\|sum\|super\|type\|vars\|zip\|apply\|basestring\|buffer\|cmp\|coerce\|execfile\|file\|intern\|long\|raw_input\|reduce\|reload\|unichr\|unicode\|xrange\|ascii\|exec\|print\)\(\s*=\)\@!" contained

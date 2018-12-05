@@ -614,6 +614,7 @@ hi! link pythonFromDot            SublimePink
 hi! link pythonFrom               Keyword
 hi! link pythonImgUnit            SublimeType
 hi! link pythonUnderline          SublimeContextParam
+hi! link pythonImportAll          Special
 
 " XXX: Some string prefix are not rendered correctly, should fix later
 

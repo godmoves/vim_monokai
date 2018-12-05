@@ -66,6 +66,7 @@ syn keyword pythonBuiltinType dict int long bool float complex set frozenset lis
 " syn keyword pythonBuiltinType file super
 
 syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVar skipwhite
+" TODO: handle this smarter
 syn match pythonLambdaVar       "\%(\%(lambda\s\)\s*\**\)\@<=\h\%(\w\)*:\@=" display 
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
@@ -83,6 +84,8 @@ syn keyword pythonInclude      import
 syn keyword pythonImport       import
 syn keyword pythonFrom         from
 syn match pythonFromDot        '\(^\s*from\s*\)\@<=\.' display
+" TODO: this is not recognized correctly
+syn match pythonImportAll      '\(import\s*\)\@<=\*'
 
 if s:Python2Syntax()
   if !s:Enabled('g:python_print_as_function')
@@ -105,9 +108,9 @@ else
   syn cluster pythonExpression  contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonBuiltinObj,pythonBuiltinFunc
 endif
 
-syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(:\|$\)" contained contains=pythonNewFuncParam transparent keepend
+syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|:\|$\)" contained contains=pythonNewFuncParam transparent keepend
 syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonNewFuncParamLeft,pythonFuncBuiltinObj,pythonFuncBuiltinType,pythonClassDef,pythonFuncDef,pythonNone skipwhite
-syn match pythonNewFuncParamLeft "\(=\s*\w*(\=\|\w\|\.\)\@<![^,|^(|^)|^=]*\(=\|,\|)\)\@=" contained
+syn match pythonNewFuncParamLeft "\(=\s*\w*(\=\|\w\|\.\|:\s*\)\@<!\h\w*\(=\|,\|)\|:\|$\)\@=" contained
 syn match pythonBrackets "{[(|)]}" contained skipwhite
 
 syn region pythonParentClass start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParentClassName transparent keepend
@@ -116,8 +119,8 @@ syn match pythonParentClassName "[^,|^(|^)]*" contained
 syn match pythonFuncParamKey "\h\w*\s*=\@=" contained
 syn match pythonFuncBuiltinType "\.\@<!\<\(memoryview\|object\|str\|basestring\|unicode\|buffer\|bytearray\|bytes\|slice\|dict\|int\|long\|bool\|float\|complex\|set\|frozenset\|list\|tuple\|file\|super\)\(\s*=\)\@!" contained
 syn match pythonFuncBuiltinObj "\.\@<!\<\(hex\|oct\|__import__\|abs\|all\|any\|bin\|callable\|classmethod\|compile\|complex\|delattr\|dir\|divmod\|enumerate\|eval\|filter\|format\|getattr\|globals\|hasattr\|hash\|help\|id\|input\|isinstance\|issubclass\|iter\|len\|locals\|map\|max\|chr\|min\|next\|open\|ord\|pow\|property\|range\|repr\|reversed\|round\|setattr\|type\|sorted\|staticmethod\|sum\|super\|type\|vars\|zip\|apply\|basestring\|buffer\|cmp\|coerce\|execfile\|file\|intern\|long\|raw_input\|reduce\|reload\|unichr\|unicode\|xrange\|ascii\|exec\|print\)\(\s*=\)\@!" contained
-syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\( \|$\)" contained contains=pythonFuncParam transparent keepend
-syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVar,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
+syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|$\|:\)" contained contains=pythonFuncParam transparent keepend
+syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonRepeat,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVar,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
 
 
 "
@@ -356,7 +359,7 @@ else
 
   syn match   pythonFloat       '\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=\(j\=\>\|J\=\>\)\@=' display
   syn match   pythonFloat       '\<\d\%([_0-9]*\d\)\=[eE][+-]\=\d\%([_0-9]*\d\)\=\(j\=\>\|J\=\>\)\@=' display
-  syn match   pythonFloat       '\<\d\%([_0-9]*\d\)\=\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=\(j\=\>\|J\=\>\)\@=' display
+  syn match   pythonFloat       '\<\d\%([_0-9]*\d\)\=\.\%(\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=\(j\=\>\|J\=\>\)\@=\)\=' display
   syn match   pythonImgUnit     '\d\@<=\(j\|J\)'
 endif
 
@@ -366,11 +369,12 @@ endif
 
 syn keyword pythonNone           None
 syn keyword pythonBoolean        True False
-syn keyword pythonBuiltinOthers  Ellipsis NotImplemented
+syn keyword pythonBuiltinOthers  Ellipsis NotImplemented __debug__ 
+" TODO: fix the highlight of ...
 
 if s:Enabled('g:python_highlight_builtin_objs')
   syn match pythonBuiltinObj    '\v\.@<!<%(object|bool|int|float|tuple|str|list|dict|set|frozenset|bytearray|bytes)>'
-  syn keyword pythonBuiltinObj  __debug__ __doc__ __file__ __name__ __package__
+  syn keyword pythonBuiltinObj  __doc__ __file__ __name__ __package__
   syn keyword pythonBuiltinObj  __loader__ __spec__ __path__ __cached__
 endif
 

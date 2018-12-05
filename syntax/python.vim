@@ -58,7 +58,7 @@ endif
 "
 " Keywords
 "
-
+syn keyword pythonUnderline   _
 syn keyword pythonBuiltinType type object
 syn keyword pythonBuiltinType str basestring unicode buffer bytearray bytes chr unichr
 syn keyword pythonBuiltinType dict int long bool float complex set frozenset list tuple
@@ -66,7 +66,7 @@ syn keyword pythonBuiltinType dict int long bool float complex set frozenset lis
 " syn keyword pythonBuiltinType file super
 
 syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVar skipwhite
-syn match pythonLambdaVar       "\%(\%(lambda\s\)\s*\)\@<=\h\%(\w\)*:\@=" display 
+syn match pythonLambdaVar       "\%(\%(lambda\s\)\s*\**\)\@<=\h\%(\w\)*:\@=" display 
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
 syn keyword pythonFuncDef       def nextgroup=pythonNewFunc skipwhite
@@ -103,19 +103,21 @@ else
   syn cluster pythonExpression  contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonBuiltinObj,pythonBuiltinFunc
 endif
 
-syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonNewFuncParam transparent keepend
-syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean skipwhite
+syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(:\|$\)" contained contains=pythonNewFuncParam transparent keepend
+syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonNewFuncParamLeft,pythonFuncBuiltinObj,pythonFuncBuiltinType,pythonClassDef,pythonFuncDef,pythonNone skipwhite
+syn match pythonNewFuncParamLeft "\(=\s*\|\w\|\.\)\@<![^,|^(|^)|^=]*\(=\|,\|)\)\@=" contained
+" syn match pythonNewFuncParamLeft "\h\w*\s*=\@=\|\(=\s*\|\w\|\.\)\@<!\h\w*,\@=\|\(\s\+\|,\s*\)\@<=\h\w*)\@=" contained
 syn match pythonBrackets "{[(|)]}" contained skipwhite
 
 syn region pythonParentClass start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParentClassName transparent keepend
 syn match pythonParentClassName "[^,|^(|^)]*" contained
 
 syn match pythonFunc "[a-zA-Z_][a-zA-Z0-9_]*(\@=" display nextgroup=pythonFuncParamList
-syn match pythonFuncParamKey "\w*\s*=\@=" contained
+syn match pythonFuncParamKey "\h\w*\s*=\@=" contained
 syn match pythonFuncBuiltinType "\.\@<!\<\(memoryview\|object\|str\|basestring\|unicode\|buffer\|bytearray\|bytes\|slice\|dict\|int\|long\|bool\|float\|complex\|set\|frozenset\|list\|tuple\|file\|super\)\(\s*=\)\@!" contained
 syn match pythonFuncBuiltinObj "\.\@<!\<\(hex\|oct\|__import__\|abs\|all\|any\|bin\|callable\|classmethod\|compile\|complex\|delattr\|dir\|divmod\|enumerate\|eval\|filter\|format\|getattr\|globals\|hasattr\|hash\|help\|id\|input\|isinstance\|issubclass\|iter\|len\|locals\|map\|max\|chr\|min\|next\|open\|ord\|pow\|property\|range\|repr\|reversed\|round\|setattr\|type\|sorted\|staticmethod\|sum\|super\|type\|vars\|zip\|apply\|basestring\|buffer\|cmp\|coerce\|execfile\|file\|intern\|long\|raw_input\|reduce\|reload\|unichr\|unicode\|xrange\|ascii\|exec\|print\)\(\s*=\)\@!" contained
-syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonFuncParam transparent keepend
-syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj skipwhite
+syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\( \|$\)" contained contains=pythonFuncParam transparent keepend
+syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVar,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
 
 
 "
@@ -393,6 +395,7 @@ syn keyword pythonBuiltinMethod __imod__ __ipow__ __ilshift__ __irshift__ __iand
 syn keyword pythonBuiltinMethod __ior__  __neg__ __pos__ __abs__ __invert__ __complex__
 syn keyword pythonBuiltinMethod __float__ __int__ __index__ __round__ __enter__ __exit__
 syn keyword pythonBuiltinMethod __await__ __aiter__ __anext__ __aenter__ __aexit__
+syn keyword pythonBuiltinMethod __div__ __rdiv__ __nonzero__ __long__ __hex__ __oct__
 " TODO: these method are listed but not highlighted in sublime text 3
 " syn keyword pythonBuiltinMethod __trunc__ __floor__ __ceil__ __matmul__ __imatmul__ __rmatmul__
 

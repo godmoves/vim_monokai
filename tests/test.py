@@ -20,7 +20,10 @@ raise Exception from ex
 
 yield from
 
+_
+
 lambda x: x.test
+lambda *xs: x.test
 
 def functionname
 class Classname
@@ -53,7 +56,25 @@ test(slice)
 
 test.__init__
 
+def conv_with_general_padding(lhs, rhs, window_strides, padding,
+                              lhs_dilation, rhs_dilation):
+  return conv_general_dilated_p.bind(
+      lhs, rhs, window_strides=tuple(window_strides), padding=tuple(padding),
+      lhs_dilation=(), rhs_dilation=(), dimension_numbers=None,
+      lhs_shape=lhs.shape, rhs_shape=rhs.shape)
+
+def bind(lhs, rhs, window_strides=tuple(window_strides), padding=tuple(padding),
+         lhs_dilation=(), rhs_dilation=(), dimension_numbers=None,
+         lhs_shape=lhs.shape, rhs_shape=rhs.shape):
+
+def test(arg):
 def test(arg1=1, arg2=True, __init__)
+def test(arg1=str(test))
+def test(arg1=test, arg2=teest)
+test(arg1=str(test))
+test(arg1=str(test), arg2=str(test))
+
+def test(ard):test
 
 class Model(torch.nn.Module):
 

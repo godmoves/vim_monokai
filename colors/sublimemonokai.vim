@@ -588,7 +588,8 @@ hi! link pythonInclude            Keyword
 hi! link pythonImport             Keyword
 hi! link pythonImportFrom         Keyword
 hi! link pythonStatement          Keyword
-hi! link pythonNewFuncParam       SublimeContextParam
+hi! link pythonNewFuncParam       Blank
+hi! link pythonNewFuncParamLeft   SublimeContextParam
 hi! link pythonParentClassName    SublimeParentClass
 hi! link pythonFunc               SublimeAqua
 hi! link pythonFuncParam          Blank
@@ -612,6 +613,7 @@ hi! link pythonCommentString      Comment
 hi! link pythonFromDot            SublimePink
 hi! link pythonFrom               Keyword
 hi! link pythonImgUnit            SublimeType
+hi! link pythonUnderline          SublimeContextParam
 
 " XXX: Some string prefix are not rendered correctly, should fix later
 

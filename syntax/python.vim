@@ -1,3 +1,8 @@
+" File:       sublimemonokai.vim
+" Maintainer: Mankit Pong (godmoves@github)
+" URL:        https://github.com/godmoves/vim_settings
+" License:    MIT
+
 " For version 5.x: Clear all syntax items
 " For versions greater than 6.x: Quit when a syntax file was already loaded
 if v:version < 600

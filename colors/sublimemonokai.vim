@@ -1,6 +1,6 @@
 " File:       sublimemonokai.vim
-" Maintainer: Erich Gubler (erichdongubler)
-" URL:        https://github.com/erichdongubler/vim-sublime-monokai
+" Maintainer: Mankit Pong (godmoves@github)
+" URL:        https://github.com/godmoves/vim_settings
 " License:    MIT
 
 " Initialisation

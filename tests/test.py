@@ -24,6 +24,7 @@ _
 
 lambda x: x.test
 lambda *xs: x.test
+test(lambda x: x.test)
 
 def functionname
 class Classname

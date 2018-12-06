@@ -72,7 +72,7 @@ syn keyword pythonBuiltinType dict int long bool float complex set frozenset lis
 
 syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVarList skipwhite
 " TODO: handle this smarter, deal with brackets
-syn region pythonLambdaVarList  start='\s' skip='\\$' end=':\|$' contained contains=pythonComment,pythonNumber,pythonStatement,pythonOperator,pythonLambdaVar transparent keepend
+syn region pythonLambdaVarList  start='\(\<lambda\)\@<=\s' skip='\\$' end=':\|$' contained contains=pythonComment,pythonNumber,pythonStatement,pythonOperator,pythonLambdaVar transparent keepend
 syn match pythonLambdaVar       '\h\w*' contained
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
@@ -119,6 +119,7 @@ syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,
 syn match pythonNewFuncParamLeft "\(=\s*\w*(\=\|\w\|\.\|:\s*\)\@<!\h\w*\(=\|,\|)\|:\|$\)\@=" contained
 syn match pythonBrackets "{[(|)]}" contained skipwhite
 
+" TODO: fix the highlight in the class brackets
 syn region pythonParentClass start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParentClassName transparent keepend
 syn match pythonParentClassName "[^,|^(|^)]*" contained
 
@@ -126,7 +127,7 @@ syn match pythonFuncParamKey "\h\w*\s*=\@=" contained
 syn match pythonFuncBuiltinType "\.\@<!\<\(memoryview\|object\|str\|basestring\|unicode\|buffer\|bytearray\|bytes\|slice\|dict\|int\|long\|bool\|float\|complex\|set\|frozenset\|list\|tuple\|file\|super\)\(\s*=\)\@!" contained
 syn match pythonFuncBuiltinObj "\.\@<!\<\(hex\|oct\|__import__\|abs\|all\|any\|bin\|callable\|classmethod\|compile\|complex\|delattr\|dir\|divmod\|enumerate\|eval\|filter\|format\|getattr\|globals\|hasattr\|hash\|help\|id\|input\|isinstance\|issubclass\|iter\|len\|locals\|map\|max\|chr\|min\|next\|open\|ord\|pow\|property\|range\|repr\|reversed\|round\|setattr\|type\|sorted\|staticmethod\|sum\|super\|type\|vars\|zip\|apply\|basestring\|buffer\|cmp\|coerce\|execfile\|file\|intern\|long\|raw_input\|reduce\|reload\|unichr\|unicode\|xrange\|ascii\|exec\|print\)\(\s*=\)\@!" contained
 syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|$\|:\)" contained contains=pythonFuncParam transparent keepend
-syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonRepeat,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVar,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
+syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonRepeat,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVarList,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
 
 
 "

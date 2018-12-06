@@ -24,7 +24,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 3. Set the color scheme to monokai:
 ```
-colorscheme sublimemonokai
+colorscheme vimmonokai
 ```
 
 4. Some enhancements:
@@ -33,6 +33,6 @@ colorscheme sublimemonokai
 set termguicolors
 
 " Enable Italic font
-let g:sublimemonokai_term_italic = 1
+let g:vimmonokai_term_italic = 1
 ```
 

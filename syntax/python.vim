@@ -90,7 +90,6 @@ syn keyword pythonInclude      import
 syn keyword pythonImport       import
 syn keyword pythonFrom         from
 syn match pythonFromDot        '\(^\s*from\s*\)\@<=\.' display
-" TODO: this is not recognized correctly
 syn match pythonImportAll      '\(import\s*\)\@<=\*'
 
 if s:Python2Syntax()
@@ -377,7 +376,7 @@ endif
 syn keyword pythonNone           None
 syn keyword pythonBoolean        True False
 syn keyword pythonBuiltinOthers  Ellipsis NotImplemented __debug__ 
-" TODO: fix the highlight of ...
+syn match pythonBuiltinOthers    '\V...'
 
 if s:Enabled('g:python_highlight_builtin_objs')
   syn match pythonBuiltinObj    '\v\.@<!<%(object|bool|int|float|tuple|str|list|dict|set|frozenset|bytearray|bytes)>'

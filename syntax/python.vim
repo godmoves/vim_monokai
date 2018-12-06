@@ -70,9 +70,10 @@ syn keyword pythonBuiltinType dict int long bool float complex set frozenset lis
 " this is moved to pythonBuiltinFunc
 " syn keyword pythonBuiltinType file super
 
-syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVar skipwhite
-" TODO: handle this smarter
-syn match pythonLambdaVar       "\%(\%(lambda\s\)\s*\**\)\@<=\h\%(\w\)*:\@=" display 
+syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVarList skipwhite
+" TODO: handle this smarter, deal with brackets
+syn region pythonLambdaVarList  start='\s' skip='\\$' end=':\|$' contained contains=pythonComment,pythonNumber,pythonStatement,pythonOperator,pythonLambdaVar transparent keepend
+syn match pythonLambdaVar       '\h\w*' contained
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
 syn keyword pythonFuncDef       def nextgroup=pythonNewFunc skipwhite

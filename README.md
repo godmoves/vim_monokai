@@ -16,7 +16,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
  call plug#begin('~/.vim/plugged')
 
  " Declare the list of plugins.
- Plug 'godmoves/vim_settings'
+ Plug 'godmoves/vim_monokai'
 
  " List ends here. Plugins become visible to Vim after this call.
  call plug#end()

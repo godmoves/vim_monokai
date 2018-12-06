@@ -113,6 +113,7 @@ else
   syn cluster pythonExpression  contains=pythonStatement,pythonRepeat,pythonConditional,pythonOperator,pythonNumber,pythonHexNumber,pythonOctNumber,pythonBinNumber,pythonFloat,pythonString,pythonBytes,pythonBoolean,pythonBuiltinObj,pythonBuiltinFunc
 endif
 
+" TODO: maybe split this for python2/3 separately later.
 syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|:\|$\)" contained contains=pythonNewFuncParam transparent keepend
 syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonNewFuncParamLeft,pythonFuncBuiltinObj,pythonFuncBuiltinType,pythonClassDef,pythonFuncDef,pythonNone skipwhite
 syn match pythonNewFuncParamLeft "\(=\s*\w*(\=\|\w\|\.\|:\s*\)\@<!\h\w*\(=\|,\|)\|:\|$\)\@=" contained
@@ -181,7 +182,8 @@ endif
 "
 " Strings
 "
-
+" TODO: there are a lot of things to do to fix string highlight, but this is
+" not quit urgent.
 syn match pythonStringType "\<\(b\|B\|u\|U\|f\|F\)\=\(r\|R\)\=\(\"\|\'\)\@=" display
 
 if s:Python2Syntax()

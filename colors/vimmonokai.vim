@@ -590,7 +590,8 @@ hi! link pythonImportFrom         Keyword
 hi! link pythonStatement          Keyword
 hi! link pythonNewFuncParam       Blank
 hi! link pythonNewFuncParamLeft   SublimeContextParam
-hi! link pythonParentClassName    SublimeParentClass
+hi! link pythonClassParam         SublimeParentClass
+hi! link pythonClassParamKey      SublimeContextParam
 hi! link pythonFunc               SublimeAqua
 hi! link pythonFuncParam          Blank
 hi! link pythonFuncParamKey       SublimeContextParam

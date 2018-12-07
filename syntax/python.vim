@@ -100,13 +100,13 @@ if s:Python2Syntax()
   syn keyword pythonStatement   exec
   syn keyword pythonImport      as
   syn match   pythonNewFunc     '[a-zA-Z_][a-zA-Z0-9_]*' display contained contains=pythonBuiltinMethod nextgroup=pythonNewFuncParamList
-  syn match   pythonNewClass    '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonParentClass
+  syn match   pythonNewClass    '[a-zA-Z_][a-zA-Z0-9_]*' display contained nextgroup=pythonClassParamList
   syn match   pythonFunc        '[a-zA-Z_][a-zA-Z0-9_]*(\@=' display nextgroup=pythonFuncParamList
 else
   syn keyword pythonStatement   as nonlocal
   syn match   pythonStatement   '\v\.@<!<await>'
   syn match   pythonNewFunc     '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained contains=pythonBuiltinMethod nextgroup=pythonNewFuncParamList
-  syn match   pythonNewClass    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonParentClass
+  syn match   pythonNewClass    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained nextgroup=pythonClassParamList
   syn match   pythonFunc        '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*(\@=' display nextgroup=pythonFuncParamList
   syn match   pythonStatement   'async\(\s\+def\>\)\@=' 
   syn match   pythonStatement   '\<async\s\+with\>'
@@ -120,15 +120,15 @@ syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,
 syn match pythonNewFuncParamLeft "\(=\s*\w*(\=\|\w\|\.\|:\s*\)\@<!\h\w*\(=\|,\|)\|:\|$\)\@=" contained
 syn match pythonBrackets "{[(|)]}" contained skipwhite
 
-" TODO: fix the highlight in the class brackets
-syn region pythonParentClass start="(" skip=+\(".*"\|'.*'\)+ end=")" contained contains=pythonParentClassName transparent keepend
-syn match pythonParentClassName "[^,|^(|^)]*" contained
+syn region pythonClassParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\|:" contained contains=pythonClassParam transparent keepend
+syn match pythonClassParam "[^,|^(|^)|\\|:]*" contained contains=pythonComment,pythonClassParamKey,pythonOperator skipwhite
+syn match pythonClassParamKey "\h\w*\s*=\@=" contained
 
+syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|$\|:\)" contained contains=pythonFuncParam transparent keepend
+syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonRepeat,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVarList,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
 syn match pythonFuncParamKey "\h\w*\s*=\@=" contained
 syn match pythonFuncBuiltinType "\.\@<!\<\(memoryview\|object\|str\|basestring\|unicode\|buffer\|bytearray\|bytes\|slice\|dict\|int\|long\|bool\|float\|complex\|set\|frozenset\|list\|tuple\|file\|super\)\(\s*=\)\@!" contained
 syn match pythonFuncBuiltinObj "\.\@<!\<\(hex\|oct\|__import__\|abs\|all\|any\|bin\|callable\|classmethod\|compile\|complex\|delattr\|dir\|divmod\|enumerate\|eval\|filter\|format\|getattr\|globals\|hasattr\|hash\|help\|id\|input\|isinstance\|issubclass\|iter\|len\|locals\|map\|max\|chr\|min\|next\|open\|ord\|pow\|property\|range\|repr\|reversed\|round\|setattr\|type\|sorted\|staticmethod\|sum\|super\|type\|vars\|zip\|apply\|basestring\|buffer\|cmp\|coerce\|execfile\|file\|intern\|long\|raw_input\|reduce\|reload\|unichr\|unicode\|xrange\|ascii\|exec\|print\)\(\s*=\)\@!" contained
-syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|$\|:\)" contained contains=pythonFuncParam transparent keepend
-syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonRepeat,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVarList,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
 
 
 "

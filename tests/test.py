@@ -15,12 +15,13 @@ from test import var as name
 from . import test
 from test.test import test
 from .test import test
+from test import *
 
 raise Exception from ex
 
 yield from
 
-_
+_ self cls
 
 lambda x: x.test
 lambda *xs: x.test

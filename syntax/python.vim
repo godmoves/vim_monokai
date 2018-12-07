@@ -149,9 +149,9 @@ syn match pythonError           '[$?]\|\([-+@%&|^~]\)\1\{1,}\|\([=*/<>]\)\2\{2,}
 "       when the decorator is multiline, the highlight may be incorrect
 syn match   pythonDecorator    '^\s*\zs@' display skipwhite
 if s:Python2Syntax()
-  syn match   pythonDottedName '\(@\s*\h\(\w\|\.\)*\.\|@\s*\)\@<=\h\w*\(\.\|\w\)\@!' display 
+  syn match   pythonDottedName '\(@\s*\h\(\w\|\.\)*\.\|@\s*\)\@<=\h\w*\(\.\|\w\|\s*\\\)\@!' display 
 else
-  syn match   pythonDottedName '\(@\s*\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\(\%([^[:cntrl:][:punct:][:space:]]\|_\)\|\.\)*\.\|@\s*\)\@<=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\(\.\|\%([^[:cntrl:][:punct:][:space:]]\|_\)\)\@!' display 
+  syn match   pythonDottedName '\(@\s*\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\(\%([^[:cntrl:][:punct:][:space:]]\|_\)\|\.\)*\.\|@\s*\)\@<=\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\(\.\|\%([^[:cntrl:][:punct:][:space:]]\|_\)\|\s*\\\)\@!' display 
 endif
 
 "

@@ -73,6 +73,7 @@ syn keyword pythonBuiltinType dict int long bool float complex set frozenset lis
 syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVarList skipwhite
 " TODO: handle this smarter, deal with brackets
 syn region pythonLambdaVarList  start='\(\<lambda\)\@<=\s' skip='\\$' end=':\|$' contained contains=pythonComment,pythonNumber,pythonStatement,pythonOperator,pythonLambdaVar transparent keepend
+syn region pythonLambdaVarList  start='\(\<lambda\s*\)\@<=\s(' end=')' contained contains=pythonComment,pythonNumber,pythonStatement,pythonOperator,pythonLambdaVar transparent keepend
 syn match pythonLambdaVar       '\h\w*' contained
 syn keyword pythonStatement     break continue del return pass yield global assert with
 syn keyword pythonStatement     raise nextgroup=pythonExClass skipwhite
@@ -144,7 +145,8 @@ syn match pythonError           '[$?]\|\([-+@%&|^~]\)\1\{1,}\|\([=*/<>]\)\2\{2,}
 "
 " Decorators (new in Python 2.4)
 "
-
+" TODO: there are some display errors, fix them laster
+"       when the decorator is multiline, the highlight may be incorrect
 syn match   pythonDecorator    '^\s*\zs@' display skipwhite
 if s:Python2Syntax()
   syn match   pythonDottedName '\(@\s*\h\(\w\|\.\)*\.\|@\s*\)\@<=\h\w*\(\.\|\w\)\@!' display 

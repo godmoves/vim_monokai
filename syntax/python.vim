@@ -64,11 +64,7 @@ endif
 " Keywords
 "
 syn keyword pythonUnderline   _
-syn keyword pythonBuiltinType type object
-syn keyword pythonBuiltinType str basestring unicode buffer bytearray bytes chr unichr
-syn keyword pythonBuiltinType dict int long bool float complex set frozenset list tuple
-" this is moved to pythonBuiltinFunc
-" syn keyword pythonBuiltinType file super
+syn match pythonBuiltinType '\v\.@<!\zs<%(type|object|str|basestring|unicode|buffer|bytearray|bytes|chr|dict|int|long|bool|float|complex|set|frozenset|list|tuple|unichr)>'
 
 syn keyword pythonLambdaExpr    lambda nextgroup=pythonLambdaVarList skipwhite
 " TODO: handle this smarter, deal with brackets
@@ -115,7 +111,7 @@ else
 endif
 
 " TODO: maybe split this for python2/3 separately later.
-syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|:\|$\)" contained contains=pythonNewFuncParam transparent keepend
+syn region pythonNewFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|:\|$\|->\)" contained contains=pythonNewFuncParam transparent keepend
 syn match pythonNewFuncParam "[^,|^(|^)]*" contained contains=pythonConditional,pythonOperator,pythonLambdaExpr,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonNewFuncParamLeft,pythonFuncBuiltinObj,pythonFuncBuiltinType,pythonClassDef,pythonFuncDef,pythonNone skipwhite
 syn match pythonNewFuncParamLeft "\(=\s*\w*(\=\|\w\|\.\|:\s*\)\@<!\h\w*\(=\|,\|)\|:\|$\)\@=" contained
 syn match pythonBrackets "{[(|)]}" contained skipwhite
@@ -124,7 +120,7 @@ syn region pythonClassParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\|:" conta
 syn match pythonClassParam "[^,|^(|^)|\\|:]*" contained contains=pythonComment,pythonClassParamKey,pythonOperator skipwhite
 syn match pythonClassParamKey "\h\w*\s*=\@=" contained
 
-syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|$\|:\)" contained contains=pythonFuncParam transparent keepend
+syn region pythonFuncParamList start="(" skip=+\(".*"\|'.*'\)+ end=")\(\s\|$\|:\)\=" contained contains=pythonFuncParam transparent keepend
 syn match pythonFuncParam "[^,|^(|^)]*" contained contains=pythonFunc,pythonRepeat,pythonConditional,pythonOperator,pythonLambdaExpr,pythonLambdaVarList,pythonString,pythonNumber,pythonClassVar,pythonComment,pythonBoolean,pythonFuncParamKey,pythonFuncBuiltinType,pythonFuncBuiltinObj,pythonFuncDef,pythonClassDef,pythonBuiltinMethod,pythonNone skipwhite
 syn match pythonFuncParamKey "\h\w*\s*=\@=" contained
 syn match pythonFuncBuiltinType "\.\@<!\<\(memoryview\|object\|str\|basestring\|unicode\|buffer\|bytearray\|bytes\|slice\|dict\|int\|long\|bool\|float\|complex\|set\|frozenset\|list\|tuple\|file\|super\)\(\s*=\)\@!" contained
@@ -137,8 +133,9 @@ syn match pythonFuncBuiltinObj "\.\@<!\<\(hex\|oct\|__import__\|abs\|all\|any\|b
 
 syn keyword pythonOperator      and in is not or
 if s:Enabled('g:python_highlight_operators')
-    syn match pythonOperator    '\V=\|-\|+\|@\|/\|%\|&\||\|^\|~\|<\|>\|!='
+    syn match pythonOperator    '\V=\|+\|@\|/\|%\|&\||\|^\|~\|<\|!='
     syn match pythonOperator    '\%(\<import\s\+\)\@<!\*'
+    syn match pythonOperator    '->\@!\|-\@<!>'
 endif
 syn match pythonError           '[$?]\|\([-+@%&|^~]\)\1\{1,}\|\([=*/<>]\)\2\{2,}\|\([+@/%&|^~<>]\)\3\@![-+*@/%&|^~<>]\|\*\*[*@/%&|^<>]\|=[*@/%&|^<>]\|-[+*@/%&|^~<]\|[<!>]\+=\{2,}\|!\{2,}=\+' display
 
